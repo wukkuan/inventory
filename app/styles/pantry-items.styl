@@ -1,0 +1,57 @@
+@import 'mixins/unstyled-button'
+
+even-color = #F60000;
+odd-color = #FF5A00;
+
+ul.pantry-items {
+  list-style: none;
+  padding: 0;
+  width: 320px;
+
+  li {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    background-color: even-color;
+    height: 60px;
+    color: white;
+    padding-left: 10px;
+
+    .quantity > button {
+      unstyled-button();
+      width: 20px;
+    }
+
+    input.title {
+      background-color: inherit;
+      color: white;
+      border: none;
+      font-size: 24px
+      width: 210px;
+      margin: 0;
+    }
+
+    &:nth-of-type(even) {
+      background-color: odd-color;
+    }
+
+  }
+
+  li.create-new {
+    form {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+
+      width: 100%;
+    }
+    
+    input[type="submit"] {
+      unstyled-button();
+    }
+  }
+}
+

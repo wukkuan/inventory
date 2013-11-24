@@ -44,6 +44,7 @@
     "karma": "~0.9.4",
     "karma-qunit": "~0.0.3",
     "karma-coverage": "~0.0.3",
-    "karma-phantomjs-launcher": "~0.0.2"
+    "karma-phantomjs-launcher": "~0.0.2",
+    "grunt-contrib-stylus": "~0.10.0"
   }
 }
