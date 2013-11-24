@@ -1,0 +1,18 @@
+<form {{action createNewItem newTitle on="submit"}}>
+  {{input type="text" value=newTitle}}
+  <input type="submit" value="Create New Item" />
+</form>
+
+<ul class="pantry-items">
+  {{#each item in model}}
+    <li>
+      {{input type="text" value=item.title}}
+      <div class="quantity">
+        <button {{action decrementQuantity item}}>-</button>
+        {{item.quantity}}
+        <button {{action incrementQuantity item}}>+</button>
+      </div>
+    </li>
+  {{/each}}
+</ul>
+

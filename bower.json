@@ -2,13 +2,13 @@
   "name": "ember-app-kit",
   "dependencies": {
     "handlebars": "~1.1.2",
-    "jquery": "~1.9.1",
+    "jquery": "~2.*",
     "qunit": "~1.12.0",
     "ember": "~1.2.0",
     "ember-data": "~1.0.0-beta.3",
     "ember-resolver": "git://github.com/stefanpenner/ember-jj-abrams-resolver.git#master",
     "firebase": "*",
-    "emberfire": "git://github.com/firebase/emberFire.git#gh-pages"
+    "emberfire": "git://github.com/ember-meteor/emberFire.git#object-array"
   },
   "resolutions": {
     "ember": "~1.2.0",
