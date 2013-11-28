@@ -13,7 +13,10 @@ var PantryItemsController = Em.ArrayController.extend({
       });
       this.set('newTitle', '');
     }
-  }
+  },
+
+  sortProperties: ['title'],
+  sortAscending: true
 });
 
 export default PantryItemsController;
