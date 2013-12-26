@@ -1,0 +1,9 @@
+{{input type="text"
+       value=item.title
+  classNames="title"}}
+
+<div class="quantity">
+  <button {{action decrementQuantity item}}>-</button>
+  {{item.quantity}}
+  <button {{action incrementQuantity item}}>+</button>
+</div>
