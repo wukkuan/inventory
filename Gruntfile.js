@@ -24,6 +24,8 @@ module.exports = function(grunt) {
   //   `npm install --save-dev grunt-emblem`
   //   `bower install emblem.js --save`
   //
+  // * For EmberScript, run `npm install --save-dev grunt-ember-script`
+  //
   // * for LiveReload, `npm install --save-dev connect-livereload`
   //
   // * for displaying the execution time of the grunt tasks,
@@ -35,13 +37,11 @@ module.exports = function(grunt) {
   // * for minimizing images in the dist task
   //   `npm install --save-dev grunt-contrib-imagemin`
   //
-  // * for using the loom generator to generate routes, controllers, etc.
-  //   efficiently. `npm install --save-dev loom loom-generators-ember`
-  //
 
   var Helpers = require('./tasks/helpers'),
       filterAvailable = Helpers.filterAvailableTasks,
-      _ = grunt.util._;
+      _ = grunt.util._,
+      path = require('path');
 
   Helpers.pkg = require("./package.json");
 
@@ -52,7 +52,8 @@ module.exports = function(grunt) {
   // Loads task options from `tasks/options/`
   // and loads tasks defined in `package.json`
   var config = require('load-grunt-config')(grunt, {
-    configPath: "tasks/options",
+    defaultPath: path.join(__dirname, 'tasks/options'),
+    configPath: path.join(__dirname, 'tasks/custom'),
     init: false
   });
   grunt.loadTasks('tasks'); // Loads tasks in `tasks/` folder
@@ -83,12 +84,18 @@ module.exports = function(grunt) {
 
   // Servers
   // -------------------
-  grunt.registerTask('server', "Run your server in development mode, auto-rebuilding when files change.", [
-                     'clean:debug',
-                     'build:debug',
-                     'expressServer:debug',
-                     'watch'
-                     ]);
+  grunt.registerTask('server', "Run your server in development mode, auto-rebuilding when files change.", function(proxyMethod) {
+    var expressServerTask = 'expressServer:debug';
+    if (proxyMethod) {
+      expressServerTask += ':' + proxyMethod;
+    }
+
+    grunt.task.run(['clean:debug',
+                    'build:debug',
+                    expressServerTask,
+                    'watch'
+                    ]);
+  });
 
   grunt.registerTask('server:dist', "Build and preview a minified & production-ready version of your app.", [
                      'dist',
@@ -107,14 +114,20 @@ module.exports = function(grunt) {
   grunt.registerTask('test:browsers', "Run your app's tests in multiple browsers (see tasks/options/karma.js for configuration).", [
                      'clean:debug', 'build:debug', 'karma:browsers' ]);
 
-  grunt.registerTask('test:server', "Start a Karma test server and the standard development server.", [
-                     'clean:debug',
-                     'build:debug',
-                     'karma:server',
-                     'expressServer:debug',
-                     'addKarmaToWatchTask',
-                     'watch'
-                     ]);
+  grunt.registerTask('test:server', "Start a Karma test server and the standard development server.", function(proxyMethod) {
+    var expressServerTask = 'expressServer:debug';
+    if (proxyMethod) {
+      expressServerTask += ':' + proxyMethod;
+    }
+
+    grunt.task.run(['clean:debug',
+                    'build:debug',
+                    'karma:server',
+                    expressServerTask,
+                    'addKarmaToWatchTask',
+                    'watch'
+                    ]);
+  });
 
   // Worker tasks
   // =================================
@@ -176,11 +189,12 @@ module.exports = function(grunt) {
 
   // Scripts
   grunt.registerTask('buildScripts', filterAvailable([
-                     'coffee',
-                     'copy:javascriptToTmp',
-                     'transpile',
                      'jshint:app',
                      'jshint:tests',
+                     'coffee',
+                     'emberscript',
+                     'copy:javascriptToTmp',
+                     'transpile',
                      'concat_sourcemap'
                      ]));
 
