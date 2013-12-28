@@ -18,28 +18,28 @@ Coordinates.reopenClass({
 
 // Touch events sometimes hide useful data in an originalEvent sub-hash.
 function normalizeTouchEvents(event) {
-  if (!event.touches) {
+  if (Em.isNone(event.touches)) {
     event.touches = event.originalEvent.touches;
   }
-  if (!event.changedTouches) {
+  if (Em.isNone(event.changedTouches)) {
     event.changedTouches = event.originalEvent.changedTouches;
   }
-  if (!event.pageX) {
+  if (Em.isNone(event.pageX)) {
     event.pageX = event.originalEvent.pageX;
   }
-  if (!event.pageY) {
+  if (Em.isNone(event.pageY)) {
     event.pageY = event.originalEvent.pageY;
   }
-  if (!event.screenX) {
+  if (Em.isNone(event.screenX)) {
     event.screenX = event.originalEvent.screenX;
   }
-  if (!event.screenY) {
+  if (Em.isNone(event.screenY)) {
     event.screenY = event.originalEvent.screenY;
   }
-  if (!event.clientX) {
+  if (Em.isNone(event.clientX)) {
     event.clientX = event.originalEvent.clientX;
   }
-  if (!event.clientY) {
+  if (Em.isNone(event.clientY)) {
     event.clientY = event.originalEvent.clientY;
   }
 
