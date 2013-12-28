@@ -4,13 +4,15 @@ var PantryItemsController = Em.ArrayController.extend({
       item.incrementProperty('quantity', 1);
     },
     decrementQuantity: function(item) {
-      item.incrementProperty('quantity', -1);
+      if (item.get('quantity') > 0) {
+        item.incrementProperty('quantity', -1);
+      }
     },
     createNewItem: function(newTitle) {
-      this.addObject({
+      this.addObject(Em.Object.create({
         title: newTitle,
         quantity: 1
-      });
+      }));
       this.set('newTitle', '');
     }
   },
