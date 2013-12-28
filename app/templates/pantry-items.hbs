@@ -7,7 +7,7 @@
     </form>
   </li>
 
-  {{#each item in controller}}
+  {{#each item in filteredItems}}
     {{view "pantry-item" tagName="li" item=item}}
   {{/each}}
 

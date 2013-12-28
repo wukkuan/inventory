@@ -19,6 +19,25 @@ var PantryItemsController = Em.ArrayController.extend({
     }
   },
 
+  filteredItems: function() {
+    var newTitle = this.get('newTitle');
+    if (!Em.isEmpty(newTitle)) {
+      return this.filter(function(item) {
+        if (item.get('title').indexOf(newTitle) !== -1) {
+          return true;
+        } else {
+          return false;
+        }
+      });
+    } else {
+      return this.filter(function(item) {
+        if (item.get('quantity') > 0) {
+          return true;
+        }
+      });
+    }
+  }.property('newTitle', '@each', '@each.quantity'),
+
   sortProperties: ['title'],
   sortAscending: true
 });
