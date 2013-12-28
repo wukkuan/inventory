@@ -7,7 +7,10 @@
     "Ember",
     "Em",
     "DS",
-    "$"
+    "$",
+    "EmberFire",
+    "FastClick",
+    "Firebase"
   ],
   "node" : false,
   "browser" : false,
