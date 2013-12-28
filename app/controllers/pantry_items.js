@@ -9,11 +9,13 @@ var PantryItemsController = Em.ArrayController.extend({
       }
     },
     createNewItem: function(newTitle) {
-      this.addObject(Em.Object.create({
-        title: newTitle,
-        quantity: 1
-      }));
-      this.set('newTitle', '');
+      if (!Em.isEmpty(newTitle) && Em.isNone(this.findBy('title', newTitle))) {
+        this.addObject(Em.Object.create({
+          title: newTitle,
+          quantity: 1
+        }));
+        this.set('newTitle', '');
+      }
     }
   },
 
