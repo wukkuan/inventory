@@ -72,7 +72,7 @@ test("action - createNewItem", function(){
 
   var insertedItem = controller.objectAt(0);
   ok(insertedItem);
-  equal(insertedItem.get('title'), title,
+  equal(Em.get(insertedItem, 'title'), title,
         'title should be set to title passed in as argument');
-  equal(insertedItem.get('quantity'), 1, 'default quantity should be 1');
+  equal(Em.get(insertedItem, 'quantity'), 1, 'default quantity should be 1');
 }); 
