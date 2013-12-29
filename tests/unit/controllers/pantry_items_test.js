@@ -76,3 +76,46 @@ test("action - createNewItem", function(){
         'title should be set to title passed in as argument');
   equal(Em.get(insertedItem, 'quantity'), 1, 'default quantity should be 1');
 }); 
+
+test("Property - filteredItems", function() {
+  var item0 = Em.Object.create({
+    quantity: 0,
+    title: 'title'
+  });
+  var item1 = Em.Object.create({
+    quantity: 1,
+    title: 'TiTlE'
+  });
+  var item2 = Em.Object.create({
+    quantity: 0,
+    title: 'something different'
+  });
+
+  controller.pushObjects([item0, item1, item2]);
+  equal(controller.get('length'), 3,
+        'length should be 3 after pushing an item');
+
+   var arrayEquals = function(arr1, arr2) {
+    var containsAll = true;
+
+    if (arr1.get('length') !== arr2.get('length')) {
+      return false;
+    }
+
+    return !arr1.find(function(item) {
+      return !arr2.contains(item);
+    });
+  };
+
+  controller.set('newTitle', null);
+  ok(arrayEquals(controller.get('filteredItems'), [item1]),
+     'should only contain items that have non-zero quantities');
+
+  controller.set('newTitle', 'titl');
+  ok(arrayEquals(controller.get('filteredItems'), [item0, item1]),
+     'should contain items with title ignoring case, but no others');
+
+  controller.set('newTitle', 'RANDOM NONSENSE');
+  ok(arrayEquals(controller.get('filteredItems'), []),
+     'should be empty');
+});

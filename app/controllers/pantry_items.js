@@ -22,8 +22,9 @@ var PantryItemsController = Em.ArrayController.extend({
   filteredItems: function() {
     var newTitle = this.get('newTitle');
     if (!Em.isEmpty(newTitle)) {
+      var newTitleLowerCase = newTitle.toLowerCase();
       return this.filter(function(item) {
-        if (item.get('title').indexOf(newTitle) !== -1) {
+        if (item.get('title').toLowerCase().indexOf(newTitleLowerCase) !== -1) {
           return true;
         } else {
           return false;
