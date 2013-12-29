@@ -115,6 +115,10 @@ test("Property - filteredItems", function() {
   ok(arrayEquals(controller.get('filteredItems'), [item0, item1]),
      'should contain items with title ignoring case, but no others');
 
+  controller.set('newTitle', 'ttl');
+  ok(arrayEquals(controller.get('filteredItems'), [item0, item1]),
+     'should contain items with ttl which is a fuzzy match, but no others');
+
   controller.set('newTitle', 'RANDOM NONSENSE');
   ok(arrayEquals(controller.get('filteredItems'), []),
      'should be empty');

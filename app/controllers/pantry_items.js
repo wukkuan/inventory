@@ -21,10 +21,15 @@ var PantryItemsController = Em.ArrayController.extend({
 
   filteredItems: function() {
     var newTitle = this.get('newTitle');
+    var newTitleFuzzy = '';
+    if (newTitle) {
+      for (var i = 0; i < newTitle.length; i++) {
+        newTitleFuzzy += newTitle.charAt(i) + '.*';
+      }
+    }
     if (!Em.isEmpty(newTitle)) {
-      var newTitleLowerCase = newTitle.toLowerCase();
       return this.filter(function(item) {
-        if (item.get('title').toLowerCase().indexOf(newTitleLowerCase) !== -1) {
+        if (item.get('title').match(new RegExp(newTitleFuzzy, 'i'))) {
           return true;
         } else {
           return false;
